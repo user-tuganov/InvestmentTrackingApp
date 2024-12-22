@@ -3,6 +3,7 @@ package ru.tuganov.bot.handlers;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.NonFinal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -21,6 +22,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CallBackHandler {
     private final DatabaseSender databaseSender;
     private final InvestmentSender investmentSender;
@@ -30,7 +32,7 @@ public class CallBackHandler {
     @PostConstruct
     private void init() {
         callBacks = Map.of(
-//                "simpleGUS", new GetInstrumentSimpleCallBack(databaseSender, investmentSender),
+                "simpleGUS", new GetInstrumentSimpleCallBack(databaseSender, investmentSender),
                 "simpleGUI", new GetInstrumentsSimpleCallBack(databaseSender, investmentSender),
                 "simpleDIC", new DeleteSimpleCallBack(databaseSender)
         );
@@ -45,6 +47,7 @@ public class CallBackHandler {
 
     public SendMessage handleCallBack(Update update, Map<Long, String> userContext) throws IOException {
         var callBackData = update.getCallbackQuery().getData();
+        log.info(callBackData);
         if (callBackData.startsWith("context")) {
             userContext.put(update.getCallbackQuery().getMessage().getChatId(), "");
             var callBack = contextCallBackHandler.get(callBackData.substring(0, Metrics.contextCallBackLength));

@@ -94,7 +94,6 @@ public class InvestmentService {
                 instrumentDtos.add(instrumentDto);
             }
         }
-        log.info("nigger");
         return instrumentDtos;
     }
 }

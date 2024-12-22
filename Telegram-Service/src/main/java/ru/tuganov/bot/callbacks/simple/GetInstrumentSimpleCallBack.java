@@ -47,9 +47,7 @@ public class GetInstrumentSimpleCallBack implements SimpleCallBack<SendPhoto> {
         var data = callBack.getData().substring("simpleGUS".length());
         SendPhoto sendPhoto = new SendPhoto();
         sendPhoto.setChatId(String.valueOf(callBack.getMessage().getChatId()));
-        List<MarkupDataDto> markupDataDtoList = new ArrayList<>(List.of(
-                new MarkupDataDto(Message.chooseBuy, "contextSNb" + data),
-                new MarkupDataDto(Message.chooseSell, "contextSNs" + data)));
+        List<MarkupDataDto> markupDataDtoList = new ArrayList<>();
         String figi;
         InstrumentDto instrumentInvestment;
         InstrumentDBDto instrumentDB = new InstrumentDBDto(-1L, -1L, "", -1.0, -1.0);
@@ -75,6 +73,11 @@ public class GetInstrumentSimpleCallBack implements SimpleCallBack<SendPhoto> {
             instrumentInvestment = investmentSender.getInstrument(figi);
 //            sendPhoto.setCaption(Message.instrumentInfo + Message.chooseBuyOrSell);
         }
+
+        markupDataDtoList.addAll(List.of(
+                new MarkupDataDto(Message.chooseBuy, "contextSNb" + data),
+                new MarkupDataDto(Message.chooseSell, "contextSNs" + data))
+        );
 
         sendPhoto.setCaption(String.format(Message.instrumentInfo,
                 instrumentInvestment.name(),

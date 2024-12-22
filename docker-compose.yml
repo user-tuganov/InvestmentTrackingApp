@@ -7,7 +7,7 @@ services:
       - "8081:8081"
     depends_on:
       - database
-      - rabbimq
+      - rabbitmq
   database:
     image: postgres:16
     container_name: database
@@ -27,7 +27,7 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      - rabbimq
+      - rabbitmq
   telegramservice:
     build:
       context: /Telegram-Service
@@ -35,8 +35,8 @@ services:
     ports:
       - "8083:8083"
     depends_on:
-      - rabbimq
-  rabbimq:
+      - rabbitmq
+  rabbitmq:
     image: rabbitmq:3.13.7-management-alpine
     container_name: rabbitmq
     ports:

@@ -8,6 +8,6 @@ spring:
         password: admin
 bot:
     name: "InvestmentNotificationBot"
-    token: "TOKEN"
+    token: "7402051299:AAGEWx6JEhpGIGC4tVLjIXL7hW2gE36Gkb0"
 scheduling:
     fixed-rate: 300000

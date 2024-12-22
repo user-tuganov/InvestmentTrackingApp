@@ -34,7 +34,6 @@ public class EditPrice implements MessageHandler {
         String figi;
         var instrumentId = 0L;
         InstrumentDBDto instrumentDB;
-        log.info("data: " + data);
         double buyPrice = 0;
         double sellPrice = 0;
 
