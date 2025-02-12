@@ -4,3 +4,5 @@
 - Бэкенд: Kotlin, Java, Spring Boot: Data, RabbitMQ, Tinkoff API
 
 Запустить: docker-compose up
+
+@InvestmentNotificationBot (на текущий момент не активен)
