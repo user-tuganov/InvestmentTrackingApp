@@ -36,7 +36,7 @@ import static java.lang.Long.parseLong;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class GetInstrumentSimpleCallBack implements SimpleCallBack<SendPhoto> {
+public class GetInstrumentSimpleCallback implements SimpleCallback<SendPhoto> {
     private final DatabaseSender databaseSender;
     private final InvestmentSender investmentSender;
 

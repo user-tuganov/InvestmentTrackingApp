@@ -9,12 +9,19 @@ import ru.tuganov.bot.utils.Metrics;
 import java.util.Map;
 
 @Component
-public class EditPriceCallBack implements ContextCallBackHandler{
+public class NewPriceCallback implements ContextCallbackHandler {
+
     @Override
     public SendMessage handle(Update update, Map<Long, String> userContext) {
         var callBack = update.getCallbackQuery();
-        var data = callBack.getData().substring(Metrics.contextCallBackLength);
-        userContext.put(callBack.getMessage().getChatId(), "saveInstrument" + data);
-        return new SendMessage(String.valueOf(callBack.getMessage().getChatId()), Message.setPrice);
+        var chatId = callBack.getMessage().getChatId();
+        var data = callBack.getData();
+        var figi = data.substring(Metrics.simpleCallBackLength);
+
+        var sendMessage = new SendMessage();
+        sendMessage.setChatId(chatId);
+        sendMessage.setText(Message.setPrice);
+        userContext.put(chatId, "saveInstrument" + figi);
+        return sendMessage;
     }
 }

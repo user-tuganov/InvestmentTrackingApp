@@ -4,6 +4,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.io.IOException;
 
-public interface SimpleCallBack<T> {
+public interface SimpleCallback<T> {
     T handle(Update update) throws IOException;
 }

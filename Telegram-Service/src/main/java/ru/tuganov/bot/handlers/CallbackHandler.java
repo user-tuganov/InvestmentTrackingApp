@@ -7,10 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.tuganov.bot.callbacks.context.AddInstrumentCallBack;
-import ru.tuganov.bot.callbacks.context.ContextCallBackHandler;
-import ru.tuganov.bot.callbacks.context.NewPriceCallBack;
-import ru.tuganov.bot.callbacks.context.EditPriceCallBack;
+import ru.tuganov.bot.callbacks.context.AddInstrumentCallback;
+import ru.tuganov.bot.callbacks.context.ContextCallbackHandler;
+import ru.tuganov.bot.callbacks.context.NewPriceCallback;
+import ru.tuganov.bot.callbacks.context.EditPriceCallback;
 import ru.tuganov.bot.callbacks.simple.*;
 import ru.tuganov.bot.utils.Message;
 import ru.tuganov.bot.utils.Metrics;
@@ -23,26 +23,26 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CallBackHandler {
+public class CallbackHandler {
     private final DatabaseSender databaseSender;
     private final InvestmentSender investmentSender;
 
-    private Map<String, SimpleCallBack<?>> callBacks;
+    private Map<String, SimpleCallback<?>> callBacks;
 
     @PostConstruct
     private void init() {
         callBacks = Map.of(
-                "simpleGUS", new GetInstrumentSimpleCallBack(databaseSender, investmentSender),
-                "simpleGUI", new GetInstrumentsSimpleCallBack(databaseSender, investmentSender),
-                "simpleDIC", new DeleteSimpleCallBack(databaseSender)
+                "simpleGUS", new GetInstrumentSimpleCallback(databaseSender, investmentSender),
+                "simpleGUI", new GetInstrumentsSimpleCallback(databaseSender, investmentSender),
+                "simpleDIC", new DeleteSimpleCallback(databaseSender)
         );
     }
 
     @NonFinal
-    private final Map<String, ContextCallBackHandler> contextCallBackHandler = Map.of (
-      "contextAI", new AddInstrumentCallBack(),
-            "contextSN", new NewPriceCallBack(),
-            "contextSP", new EditPriceCallBack()
+    private final Map<String, ContextCallbackHandler> contextCallBackHandler = Map.of (
+      "contextAI", new AddInstrumentCallback(),
+            "contextSN", new NewPriceCallback(),
+            "contextSP", new EditPriceCallback()
     );
 
     public SendMessage handleCallBack(Update update, Map<Long, String> userContext) throws IOException {

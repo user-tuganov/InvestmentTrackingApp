@@ -11,8 +11,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.tuganov.bot.callbacks.simple.GetInstrumentSimpleCallBack;
-import ru.tuganov.bot.handlers.CallBackHandler;
+import ru.tuganov.bot.callbacks.simple.GetInstrumentSimpleCallback;
+import ru.tuganov.bot.handlers.CallbackHandler;
 import ru.tuganov.bot.handlers.CommandHandler;
 import ru.tuganov.bot.handlers.MessageHandler;
 import ru.tuganov.bot.utils.Message;
@@ -37,7 +37,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     private String botToken;
 
     private final CommandHandler commandHandler;
-    private final CallBackHandler callBackHandler;
+    private final CallbackHandler callBackHandler;
     private final MessageHandler messageHandler;
     private final DatabaseSender databaseSender;
     private final InvestmentSender investmentSender;
@@ -64,7 +64,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 SendPhoto photo;
 //                log.info("not context {}", update.getCallbackQuery().getData());
                 try {
-                    photo = new GetInstrumentSimpleCallBack(databaseSender, investmentSender).handle(update);
+                    photo = new GetInstrumentSimpleCallback(databaseSender, investmentSender).handle(update);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
